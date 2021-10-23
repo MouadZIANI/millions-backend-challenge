@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\PostLike;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Carbon;
 
 class EloquentPostRepository implements PostRepository
 {
@@ -65,5 +66,12 @@ class EloquentPostRepository implements PostRepository
     public function findPostLikesByUuid(string $uuid): ?Collection
     {
         return $this->findByUuid($uuid)->likes()->get();
+    }
+
+    public function deletePostsOlderThanGivenDays(int $days)
+    {
+        $this->post->newQuery()
+            ->where('created_at',  '<=', Carbon::now()->subDays($days)->toDateTimeString())
+            ->delete();
     }
 }

@@ -24,4 +24,6 @@ interface PostRepository
     public function toggleLikeTo(User $user, Post $post): ?PostLike;
 
     public function isAuthorOfPost(User $user, Post $post): bool;
+
+    public function deletePostsOlderThanGivenDays(int $days);
 }
