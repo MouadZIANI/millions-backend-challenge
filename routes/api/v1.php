@@ -28,15 +28,13 @@ Route::prefix('auth')->as('auth:')->group(function () {
 Route::prefix('posts')->as('posts:')->group(function () {
     Route::get(
         '/',
-        \App\Http\Controllers\Api\V1\Posts\IndexController::class
+        \App\Http\Controllers\Api\V1\Posts\ToggleLikeController::class
     );
 
     Route::middleware('auth:api')->group(function () {
         Route::get(
-            '/test',
-            function () {
-                dd('test');
-            }
+            '/{post}/toggle-like',
+            \App\Http\Controllers\Api\V1\Posts\ToggleLikeController::class
         );
     });
 });

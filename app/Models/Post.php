@@ -21,6 +21,8 @@ class Post extends Model
 
     protected $primaryKey = 'uuid';
 
+    protected $keyType = 'string';
+
     protected $guarded = [];
 
     protected $dates = [
