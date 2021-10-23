@@ -42,7 +42,14 @@ class Post extends Model
 
     public function reacters(): HasManyThrough
     {
-        return $this->hasManyThrough(User::class, PostLike::class, 'post_id', 'uuid', 'uuid','user_id');
+        return $this->hasManyThrough(
+            User::class,
+            PostLike::class,
+            'post_id',
+            'uuid',
+            'uuid',
+            'user_id'
+        );
     }
 
     public function scopeWithLastReacters(Builder $query, int $length): Builder
@@ -55,6 +62,6 @@ class Post extends Model
 
     public function getImageUrlAttribute(): string
     {
-        return asset($this->image);
+        return asset('storage' . $this->image);
     }
 }

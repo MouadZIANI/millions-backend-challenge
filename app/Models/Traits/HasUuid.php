@@ -9,7 +9,7 @@ trait HasUuid
 {
     protected static function bootHasUuid(): void
     {
-        static::creating(fn (Model $model) => $model->{self::uuidColumn()} = Str::uuid());
+        static::creating(fn (Model $model) => $model->{self::uuidColumn()} = Str::uuid()->toString());
     }
 
     public function getRouteKeyName(): string

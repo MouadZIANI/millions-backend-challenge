@@ -4,11 +4,9 @@ namespace App\Models;
 
 use App\Models\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Auth;
 use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
@@ -22,6 +20,8 @@ class User extends Authenticatable implements JWTSubject
     protected $primaryKey = 'uuid';
 
     protected $keyType = 'string';
+
+    public $incrementing = false;
 
     protected $guarded = [];
 
@@ -70,5 +70,10 @@ class User extends Authenticatable implements JWTSubject
         return $this->likes()->create([
             'post_id' => $post->uuid
         ]);
+    }
+
+    public function isAuthorOfPost(Post $post): bool
+    {
+        return $this->posts()->where('uuid', $post->uuid)->exists();
     }
 }

@@ -4,14 +4,14 @@ namespace App\Http\Resources\V1;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserResource extends JsonResource
+class PostLikeResource extends JsonResource
 {
     public function toArray($request): array
     {
         return [
             'uuid' => $this->uuid,
-            'name' => $this->name,
-            'email' => $this->email,
+            'reacted_at' => $this->created_at->toDateTimeString(),
+            'author' => UserResource::make($this->reacter)
         ];
     }
 }

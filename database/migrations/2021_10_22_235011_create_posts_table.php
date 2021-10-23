@@ -17,7 +17,7 @@ class CreatePostsTable extends Migration
             $table->uuid('uuid')->primary();
             $table->text('description');
             $table->string('image')->nullable();
-            $table->foreignUuid('user_id')->constrained('users', 'uuid');
+            $table->foreignUuid('user_id')->constrained('users', 'uuid')->cascadeOnDelete();
             $table->timestamps();
         });
     }

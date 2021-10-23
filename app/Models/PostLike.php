@@ -18,6 +18,8 @@ class PostLike extends Model
 
     protected $keyType = 'string';
 
+    public $incrementing = false;
+
     protected $guarded = [];
 
     protected $dates = [
