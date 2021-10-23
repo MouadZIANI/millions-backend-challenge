@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ToggleLikeController extends Controller
 {
-    public function __invoke(int $uuid, PostRepository $postRepository): Response
+    public function __invoke(string $uuid, PostRepository $postRepository): Response
     {
         $post = $postRepository->findByUuid($uuid);
 

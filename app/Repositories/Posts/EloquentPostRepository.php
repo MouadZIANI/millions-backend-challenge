@@ -24,12 +24,9 @@ class EloquentPostRepository implements PostRepository
             ->firstWhere('uuid', $uuid);
     }
 
-    public function savePostForUser(User $user, array $fields): ?Post
+    public function save(array $fields): ?Post
     {
-        $this->post->newQuery()->create($fields);
-        $this->post->author()->associate($user);
-
-        return $this->post->save();
+        return $this->post->newQuery()->create($fields);
     }
 
     public function getPaginatedPostsWithLatestReacters(

@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +13,4 @@ use Illuminate\Support\Facades\Storage;
 |
 */
 
-Route::get('/test', function () {
-    dd(Storage::delete('posts/post-1.jpg'));
-});
+Route::view('/', 'welcome');

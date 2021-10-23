@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class LikesController extends Controller
 {
-    public function __invoke(int $uuid, PostRepository $postRepository): JsonResponse
+    public function __invoke(string $uuid, PostRepository $postRepository): JsonResponse
     {
         return response()->json([
             'likes' => PostLikeResource::collection(

@@ -11,7 +11,7 @@ interface PostRepository
 {
     public function findByUuid(string $uuid): ?Post;
 
-    public function savePostForUser(User $user, array $fields): ?Post;
+    public function save(array $fields): ?Post;
 
     public function findPostLikesByUuid(string $uuid);
 

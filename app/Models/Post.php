@@ -23,6 +23,8 @@ class Post extends Model
 
     protected $keyType = 'string';
 
+    public $incrementing = false;
+
     protected $guarded = [];
 
     protected $dates = [
@@ -62,6 +64,6 @@ class Post extends Model
 
     public function getImageUrlAttribute(): string
     {
-        return asset('storage' . $this->image);
+        return asset('storage/' . $this->image);
     }
 }
