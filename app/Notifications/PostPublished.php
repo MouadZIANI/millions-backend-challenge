@@ -56,7 +56,8 @@ class PostPublished extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            'descr'
+            'description' => $this->post,
+            'author' => $this->post->author->name,
         ];
     }
 }

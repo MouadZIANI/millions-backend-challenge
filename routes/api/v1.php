@@ -38,17 +38,17 @@ Route::prefix('posts')->as('posts:')->group(function () {
         )->name('store');
 
         Route::get(
-            '/{post}/likes',
+            '/{uuid}/likes',
             \App\Http\Controllers\Api\V1\Posts\LikesController::class
         )->name('likes');
 
         Route::get(
-            '/{post}/toggle-like',
+            '/{uuid}/toggle-like',
             \App\Http\Controllers\Api\V1\Posts\ToggleLikeController::class
         )->name('toggle-like');
 
         Route::delete(
-            '/{post}',
+            '/{uuid}',
             \App\Http\Controllers\Api\V1\Posts\DestroyController::class
         )->name('delete');
     });

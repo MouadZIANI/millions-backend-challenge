@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers\Api\V1\Posts;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\V1\PostLikeResource;
-use App\Models\Post;
 use Illuminate\Http\JsonResponse;
+use App\Http\Controllers\Controller;
+use App\Repositories\Posts\PostRepository;
+use App\Http\Resources\V1\PostLikeResource;
 use Symfony\Component\HttpFoundation\Response;
 
 class LikesController extends Controller
 {
-    public function __invoke(Post $post): JsonResponse
+    public function __invoke(int $uuid, PostRepository $postRepository): JsonResponse
     {
         return response()->json([
-            'likes' => PostLikeResource::collection($post->likes)
+            'likes' => PostLikeResource::collection(
+                $postRepository->findPostLikesByUuid($uuid)
+            )
         ], Response::HTTP_OK);
     }
 }
