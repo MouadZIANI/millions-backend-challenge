@@ -9,7 +9,6 @@ My own implementation of the backend challenge.
 * [x] An authenticated user can remove his posts, with the image file
 * [x] An authenticated user can like/unlike other posts.
 * [x] An authenticated user can see all likes of a specific post.
-* [x] An authenticated user can see all likes of a specific post.
 * [x] Send a notification to other users when a new post is added using (Database channel)
 * [x] Automatically delete posts 15 days old.
 * [x] [BONUS] Created 6 feature tests including success & failure scenarios
@@ -37,6 +36,9 @@ To get the project up and running on your local machine, do the following. I ass
 - Then run ``` php artisan serve ```
 
 Nb: In this project I used redis to store the queued notifications, so you have to configure it locally then run this command ``php artisan queue:work`` to run dispatched notifications.
+
+## Testing
+In this file [doc/postman_collection.json](doc/postman_collection.json) you will find the postman collection that you can import into your local postman app and test the api.
 
 
 
