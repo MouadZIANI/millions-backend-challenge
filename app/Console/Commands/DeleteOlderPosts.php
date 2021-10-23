@@ -14,7 +14,7 @@ class DeleteOlderPosts extends Command
      *
      * @var string
      */
-    protected $signature = 'posts:delete {days? : Number of days}';
+    protected $signature = 'posts:delete-older {days? : Number of days}';
 
     /**
      * The console command description.
@@ -40,8 +40,9 @@ class DeleteOlderPosts extends Command
      */
     public function handle(PostRepository $postRepository)
     {
-        $days = (int) $this->argument('days') ?? self::NUMBER_OF_DAYS_TO_DELETE_POSTS;
-        $postRepository->deletePostsOlderThanGivenDays($days);
+        $days = $this->argument('days') ?? self::NUMBER_OF_DAYS_TO_DELETE_POSTS;
+
+        $postRepository->deletePostsOlderThanGivenDays((int) $days);
 
         $this->info("All posts older than {$days} are deleted !");
 

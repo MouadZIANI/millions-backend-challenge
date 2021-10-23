@@ -183,8 +183,39 @@ class PostsActionsTest extends TestCase
             ->assertJsonPath('post.description', 'Post of test');
     }
 
-    public function ()
+    /** @test */
+    public function it_delete_posts_older_than_15_days()
     {
-        
+        $user = User::factory()->create();
+
+        $post1 = Post::factory()
+            ->for($user, 'author')
+            ->create([
+                'created_at' => now()->subDays(15)
+            ]);
+
+        $post2 = Post::factory()
+            ->for($user, 'author')
+            ->create([
+                'created_at' => now()->subDays(20)
+            ]);
+
+        $post3 = Post::factory()
+            ->for($user, 'author')
+            ->create([
+                'created_at' => now()->subDays(10)
+            ]);
+
+        $post4 = Post::factory()
+            ->for($user, 'author')
+            ->create([
+                'created_at' => now()
+            ]);
+
+        $this->assertEquals(4, $this->postRepository->findAll()->count());
+
+        $this->artisan('posts:delete-older');
+
+        $this->assertEquals(2, $this->postRepository->findAll()->count());
     }
 }
