@@ -3,6 +3,7 @@
 namespace App\Repositories\Users;
 
 use App\Models\User;
+use Illuminate\Support\Collection;
 
 class EloquentUserRepository implements UserRepository
 {
@@ -23,7 +24,7 @@ class EloquentUserRepository implements UserRepository
         return $this->user->newQuery()->create($fields);
     }
 
-    public function findAllExcept(User $user)
+    public function findAllExcept(User $user): ?Collection
     {
         return $this->user->newQuery()
             ->where('uuid', '!=', $user->uuid)
