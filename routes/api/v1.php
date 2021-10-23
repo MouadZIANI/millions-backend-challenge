@@ -15,6 +15,11 @@ Route::prefix('auth')->as('auth:')->group(function () {
         '/login',
         \App\Http\Controllers\Api\V1\Auth\LoginController::class
     );
+
+    Route::post(
+        '/logout',
+        \App\Http\Controllers\Api\V1\Auth\LogoutController::class
+    );
 });
 
 /**
@@ -25,4 +30,13 @@ Route::prefix('posts')->as('posts:')->group(function () {
         '/',
         \App\Http\Controllers\Api\V1\Posts\IndexController::class
     );
+
+    Route::middleware('auth:api')->group(function () {
+        Route::get(
+            '/test',
+            function () {
+                dd('test');
+            }
+        );
+    });
 });

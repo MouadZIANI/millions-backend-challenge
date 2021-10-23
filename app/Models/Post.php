@@ -19,6 +19,8 @@ class Post extends Model
     use HasEagerLimit;
     use HasUuid;
 
+    protected $primaryKey = 'uuid';
+
     protected $guarded = [];
 
     protected $dates = [
