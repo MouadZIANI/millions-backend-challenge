@@ -8,8 +8,10 @@ use App\Models\User;
 use App\Notifications\PostPublished;
 use App\Repositories\Posts\EloquentPostRepository;
 use App\Repositories\Posts\PostRepository;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Storage;
@@ -97,7 +99,11 @@ class PostsActionsTest extends TestCase
 
         $response->assertNoContent();
 
-        $likes = $this->postRepository->findPostLikesByUuid($post->uuid);
+        try {
+            $likes = $this->postRepository->findPostLikesByUuid($post->uuid);
+        } catch (ModelNotFoundException $e) {
+            $likes = Collection::make([]);
+        }
 
         $this->assertEquals(1, $likes->count());
         $this->assertEquals($likes->first()->user_id, $user->uuid);
@@ -132,7 +138,13 @@ class PostsActionsTest extends TestCase
 
         $response->assertNoContent();
 
-        $this->assertNull($this->postRepository->findByUuid($post->uuid));
+        try {
+            $deletedPost = $this->postRepository->findByUuid($post->uuid);
+        } catch (ModelNotFoundException $e) {
+            $deletedPost = null;
+        }
+
+        $this->assertNull($deletedPost);
         $this->assertFalse(Storage::exists($imagePath));
     }
 

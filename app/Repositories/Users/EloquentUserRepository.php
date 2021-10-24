@@ -16,7 +16,7 @@ class EloquentUserRepository implements UserRepository
 
     public function findByUuid(string $uuid): ?User
     {
-        return $this->user->newQuery()->firstWhere('uuid', $uuid);
+        return $this->user->newQuery()->where('uuid', $uuid)->firstOrFail();
     }
 
     public function save(array $fields): ?User

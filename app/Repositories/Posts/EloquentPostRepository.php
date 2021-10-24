@@ -22,7 +22,8 @@ class EloquentPostRepository implements PostRepository
     {
         return $this->post->newQuery()
             ->with($tobeLoadedRelations)
-            ->firstWhere('uuid', $uuid);
+            ->where('uuid', $uuid)
+            ->firstOrFail();
     }
 
     public function save(array $fields): ?Post

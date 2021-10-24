@@ -31,7 +31,6 @@ My own implementation of the backend challenge.
 * Clone repository
 * `composer install`
 * Create DB eg: `backend_api_challenge`
-* `composer install`
 * `composer setup` (copies `env` file, generates key, and migrates DB)
 * Then run ``` php artisan serve ```
 
