@@ -32,6 +32,10 @@ class Post extends Model
         'updated_at'
     ];
 
+    protected $casts = [
+        'likes_count' => 'int'
+    ];
+
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');

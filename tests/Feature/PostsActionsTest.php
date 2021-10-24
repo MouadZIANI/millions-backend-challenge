@@ -35,6 +35,7 @@ class PostsActionsTest extends TestCase
         $user1 = User::factory()->create();
         $user2 = User::factory()->create();
 
+
         $post1 = Post::factory()
             ->for($user1, 'author')
             ->create([
