@@ -7,15 +7,9 @@ use Tests\TestCase;
 
 class ExampleTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function test_example()
+    /** @test */
+    public function it_user_can_remove_his_post_with_image_file()
     {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
+        //
     }
 }
