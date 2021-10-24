@@ -24,18 +24,20 @@ My own implementation of the backend challenge.
 - Tymon/jwt-auth package (for authentication)
 - Docker
 
-## Installation & testing
+## Installation Steps
 
-To get the project up and running on your local machine, do the following. I assume you already know how to go about laravel, composer, so I'll be brief
+> prerequisite: PHP > 7.4
 
-- clone it => git clone https://github.com/MouadZIANI/millions-backend-challenge or download it
-- Run composer install, to install dependencies
-- Edit the created ``.env`` file at the root of your project, to add database credentials, etc
-- For create the tables of database run this command ``php artisan migrate`` in your cmd
-- You can also run ``` php artisan db:seed ``` in order to fill you database with a random fake data
-- Then run ``` php artisan serve ```
+* Clone repository
+* `composer install`
+* Create DB eg: `backend_api_challenge`
+* `composer install`
+* `composer setup` (copies `env` file, generates key, and migrates DB)
+* Then run ``` php artisan serve ```
 
-Nb: In this project I used redis to store the queued notifications, so you have to configure it locally then run this command ``php artisan queue:work`` to run dispatched notifications.
+Nb: In this project I used redis to store the queued notifications, so you have to configure it locally then run this command 
+``php artisan queue:work`` 
+to run dispatched notifications.
 
 ## Testing
 In this file [doc/postman_collection.json](doc/postman_collection.json) you will find the postman collection that you can import into your local postman app and test the api.
