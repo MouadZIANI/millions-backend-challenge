@@ -34,6 +34,7 @@ class PostFactory extends Factory
             'uuid' => Str::uuid(),
             'description' => $this->faker->paragraph(5),
             'image' => Arr::random($images),
+            'created_at' => now(),
         ];
     }
 }

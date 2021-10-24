@@ -68,10 +68,15 @@ class EloquentPostRepository implements PostRepository
         return $this->findByUuid($uuid)->likes()->get();
     }
 
-    public function deletePostsOlderThanGivenDays(int $days)
+    public function deletePostsOlderThanGivenDays(int $days): void
     {
         $this->post->newQuery()
             ->where('created_at',  '<=', Carbon::now()->subDays($days)->toDateTimeString())
             ->delete();
+    }
+
+    public function findAll(array $columns = ['*']): ?Collection
+    {
+        return $this->post->newQuery()->select($columns)->get();
     }
 }

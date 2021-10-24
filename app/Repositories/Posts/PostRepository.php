@@ -5,11 +5,14 @@ namespace App\Repositories\Posts;
 use App\Models\Post;
 use App\Models\PostLike;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 interface PostRepository
 {
     public function findByUuid(string $uuid): ?Post;
+
+    public function findAll(array $columns = ['*']): ?Collection;
 
     public function save(array $fields): ?Post;
 
@@ -25,5 +28,5 @@ interface PostRepository
 
     public function isAuthorOfPost(User $user, Post $post): bool;
 
-    public function deletePostsOlderThanGivenDays(int $days);
+    public function deletePostsOlderThanGivenDays(int $days): void;
 }
