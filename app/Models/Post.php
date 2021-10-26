@@ -29,11 +29,11 @@ class Post extends Model
 
     protected $dates = [
         'created_at',
-        'updated_at'
+        'updated_at',
     ];
 
     protected $casts = [
-        'likes_count' => 'int'
+        'likes_count' => 'int',
     ];
 
     public function author(): BelongsTo
@@ -62,7 +62,7 @@ class Post extends Model
     {
         return $query->with(
             'reacters',
-            fn($query) => $query->latest('post_likes.created_at')->limit($length)
+            fn ($query) => $query->latest('post_likes.created_at')->limit($length)
         );
     }
 

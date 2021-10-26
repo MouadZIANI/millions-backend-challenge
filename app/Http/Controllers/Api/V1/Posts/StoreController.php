@@ -11,15 +11,14 @@ use App\Repositories\Users\UserRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
 
 class StoreController extends Controller
 {
-    /** @var \App\Repositories\Posts\PostRepository  */
+    /** @var \App\Repositories\Posts\PostRepository */
     private PostRepository $postRepository;
 
-    /** @var \App\Repositories\Users\UserRepository  */
+    /** @var \App\Repositories\Users\UserRepository */
     private UserRepository $userRepository;
 
     public function __construct(PostRepository $postRepository, UserRepository $userRepository)
@@ -35,7 +34,7 @@ class StoreController extends Controller
         $post = $this->postRepository->save([
             'description' => $storeRequest->input('description'),
             'image' => $imagePath,
-            'user_id' => Auth::id()
+            'user_id' => Auth::id(),
         ]);
 
         $otherUsers = $this->userRepository->findAllExcept(Auth::user());

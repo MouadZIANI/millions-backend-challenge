@@ -7,7 +7,7 @@ use Illuminate\Console\Command;
 
 class DeleteOlderPosts extends Command
 {
-    const NUMBER_OF_DAYS_TO_DELETE_POSTS = 15;
+    public const NUMBER_OF_DAYS_TO_DELETE_POSTS = 15;
 
     /**
      * The name and signature of the console command.
