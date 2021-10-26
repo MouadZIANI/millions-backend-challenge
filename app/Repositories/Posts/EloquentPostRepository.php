@@ -61,7 +61,7 @@ class EloquentPostRepository implements PostRepository
 
     public function isAuthorOfPost(User $user, Post $post): bool
     {
-        return $user->posts()->where('uuid', $post->uuid)->exists();
+        return $user->uuid == $post->user_id;
     }
 
     public function findPostLikesByUuid(string $uuid): ?Collection
