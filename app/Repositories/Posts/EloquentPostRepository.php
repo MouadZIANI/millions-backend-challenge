@@ -3,8 +3,8 @@
 namespace App\Repositories\Posts;
 
 use App\Models\Post;
-use App\Models\User;
 use App\Models\PostLike;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Carbon;
@@ -35,8 +35,7 @@ class EloquentPostRepository implements PostRepository
         int $perPage,
         int $reactersLimit,
         array $columns = ['*']
-    ): LengthAwarePaginator
-    {
+    ): LengthAwarePaginator {
         return $this->post->newQuery()
             ->select($columns)
             ->latest()
@@ -48,20 +47,20 @@ class EloquentPostRepository implements PostRepository
 
     public function toggleLikeTo(User $user, Post $post): ?PostLike
     {
-        if(
+        if (
             $likedPost = $user->likes()->where('post_id', $post->uuid)->first()
         ) {
             return tap($likedPost)->delete();
         }
 
         return $user->likes()->create([
-            'post_id' => $post->uuid
+            'post_id' => $post->uuid,
         ]);
     }
 
     public function isAuthorOfPost(User $user, Post $post): bool
     {
-        return $user->posts()->where('uuid', $post->uuid)->exists();
+        return $user->uuid == $post->user_id;
     }
 
     public function findPostLikesByUuid(string $uuid): ?Collection

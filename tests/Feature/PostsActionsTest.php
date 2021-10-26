@@ -28,7 +28,7 @@ class PostsActionsTest extends TestCase
     {
         parent::setUp();
 
-        $this->postRepository = new EloquentPostRepository(new Post);
+        $this->postRepository = new EloquentPostRepository(new Post());
     }
 
     /** @test */
@@ -42,21 +42,21 @@ class PostsActionsTest extends TestCase
             ->for($user1, 'author')
             ->create([
                 'description' => 'Post one',
-                'created_at' => now()
+                'created_at' => now(),
             ]);
 
         $post2 = Post::factory()
             ->for($user1, 'author')
             ->create([
                 'description' => 'Post two',
-                'created_at' => now()->subDays(3)
+                'created_at' => now()->subDays(3),
             ]);
 
         PostLike::factory()
             ->for($post1, 'post')
             ->for($user2, 'reacter')
             ->create([
-                'created_at' => now()->subDays(2)
+                'created_at' => now()->subDays(2),
             ]);
 
         PostLike::factory()
@@ -71,14 +71,14 @@ class PostsActionsTest extends TestCase
             ->assertJsonCount(2, ['posts'])
             ->assertJsonStructure([
                 'posts' => [
-                    '*' => ['uuid', 'description', 'image', 'date', 'likes_count', 'reacters']
-                ]
+                    '*' => ['uuid', 'description', 'image', 'date', 'likes_count', 'reacters'],
+                ],
             ])
             ->assertJsonPath('posts.0.uuid', $post1->uuid)
             ->assertJsonPath('posts.0.likes_count', 2)
             ->assertJsonPath('posts.0.reacters', [
                 $user1->name,
-                $user2->name
+                $user2->name,
             ])
             ->assertJsonPath('posts.1.uuid', $post2->uuid)
             ->assertJsonPath('posts.1.likes_count', 0)
@@ -126,7 +126,7 @@ class PostsActionsTest extends TestCase
         $post = Post::factory()
             ->for($user, 'author')
             ->create([
-                'image' => UploadedFile::fake()->image('post.jpg')->size(100)->store('posts')
+                'image' => UploadedFile::fake()->image('post.jpg')->size(100)->store('posts'),
             ]);
 
         $imagePath = $post->image;
@@ -157,7 +157,7 @@ class PostsActionsTest extends TestCase
         $post = Post::factory()
             ->for($user1, 'author')
             ->create([
-                'image' => UploadedFile::fake()->image('post.jpg')->size(100)->store('posts')
+                'image' => UploadedFile::fake()->image('post.jpg')->size(100)->store('posts'),
             ]);
 
         $response = $this->actingAs($user2)
@@ -179,15 +179,17 @@ class PostsActionsTest extends TestCase
         $response = $this->actingAs($user1)
             ->post(route('api:v1:posts:store'), [
                 'description' => 'Post of test',
-                'image' => UploadedFile::fake()->image('post.jpg')->size(100)
+                'image' => UploadedFile::fake()->image('post.jpg')->size(100),
             ]);
 
         Notification::assertSentTo(
-            [$user2], PostPublished::class
+            [$user2],
+            PostPublished::class
         );
 
         Notification::assertNotSentTo(
-            [$user1], PostPublished::class
+            [$user1],
+            PostPublished::class
         );
 
         $response->assertCreated()
@@ -204,25 +206,25 @@ class PostsActionsTest extends TestCase
         $post1 = Post::factory()
             ->for($user, 'author')
             ->create([
-                'created_at' => now()->subDays(15)
+                'created_at' => now()->subDays(15),
             ]);
 
         $post2 = Post::factory()
             ->for($user, 'author')
             ->create([
-                'created_at' => now()->subDays(20)
+                'created_at' => now()->subDays(20),
             ]);
 
         $post3 = Post::factory()
             ->for($user, 'author')
             ->create([
-                'created_at' => now()->subDays(10)
+                'created_at' => now()->subDays(10),
             ]);
 
         $post4 = Post::factory()
             ->for($user, 'author')
             ->create([
-                'created_at' => now()
+                'created_at' => now(),
             ]);
 
         $this->assertEquals(4, $this->postRepository->findAll()->count());

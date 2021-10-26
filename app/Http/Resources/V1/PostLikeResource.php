@@ -11,7 +11,7 @@ class PostLikeResource extends JsonResource
         return [
             'uuid' => $this->uuid,
             'reacted_at' => $this->created_at->toDateTimeString(),
-            'author' => UserResource::make($this->reacter)
+            'author' => UserResource::make($this->reacter),
         ];
     }
 }
